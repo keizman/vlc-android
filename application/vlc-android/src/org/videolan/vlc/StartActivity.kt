@@ -101,7 +101,7 @@ class StartActivity : FragmentActivity() {
                 return when (action) {
                     "vlc.shortcut.video" -> R.id.nav_video
                     "vlc.shortcut.audio" -> R.id.nav_audio
-                    "vlc.shortcut.browser" -> R.id.nav_directories
+                    "vlc.shortcut.browser" -> R.id.nav_video  // Browse tab removed, fallback to video
                     "vlc.shortcut.resume" -> R.id.ml_menu_last_playlist
                     else -> 0
                 }

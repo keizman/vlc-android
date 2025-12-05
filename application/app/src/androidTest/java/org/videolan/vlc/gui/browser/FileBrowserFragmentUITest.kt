@@ -34,7 +34,7 @@ class FileBrowserFragmentUITest : BaseUITest() {
 
     override fun beforeTest() {
         val intent = Intent().apply {
-            putExtra(EXTRA_TARGET, R.id.nav_directories)
+            putExtra(EXTRA_TARGET, R.id.nav_video)  // Browse tab removed, use video tab
         }
         activityTestRule.launchActivity(intent)
         activity = activityTestRule.activity

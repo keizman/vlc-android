@@ -138,14 +138,7 @@ class PhoneScreenhotsInstrumentedTest : BaseUITest() {
 
     }
 
-    @Test
-    fun testTakeScreenshotBrowser() {
-        onView(AllOf.allOf(withId(R.id.nav_directories), withEffectiveVisibility(Visibility.VISIBLE)))
-                 .perform(click())
-        waitUntilLoaded { activity.findViewById<TitleListView>(R.id.network_browser_entry).findViewById(R.id.list) }
-
-        ScreenshotUtil.takeScreenshot(5,"browser")
-     }
+    // Browse tab removed - testTakeScreenshotBrowser test disabled
 
     private fun rotateLandscape() = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation()).setOrientationLeft()
     private fun disableRotateLandscape() = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation()).setOrientationNatural()

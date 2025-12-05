@@ -35,6 +35,11 @@ android {
         versionName rootProject.ext.versionName
         vectorDrawables.useSupportLibrary = true
         multiDexEnabled = true
+        ndk {
+            if (project.hasProperty('abi')) {
+                abiFilters project.property('abi')
+            }
+        }
 
         testInstrumentationRunner "org.videolan.vlc.MultidexTestRunner"
         // The following argument makes the Android Test Orchestrator run its

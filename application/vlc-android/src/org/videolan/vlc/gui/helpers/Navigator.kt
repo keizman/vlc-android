@@ -28,7 +28,6 @@ import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.MenuItem
 import androidx.core.content.edit
-import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.DefaultLifecycleObserver
@@ -36,13 +35,9 @@ import androidx.lifecycle.LifecycleOwner
 import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.navigation.NavigationBarView
-import org.videolan.medialibrary.media.MediaLibraryItem
-import org.videolan.resources.EXTRA_FOR_ESPRESSO
 import org.videolan.resources.EXTRA_TARGET
 import org.videolan.resources.ID_AUDIO
-import org.videolan.resources.ID_DIRECTORIES
 import org.videolan.resources.ID_VIDEO
-import org.videolan.resources.util.parcelableList
 import org.videolan.tools.KEY_FRAGMENT_ID
 import org.videolan.tools.isStarted
 import org.videolan.tools.setGone
@@ -55,8 +50,8 @@ import org.videolan.vlc.gui.MoreFragment
 import org.videolan.vlc.gui.PlaylistFragment
 import org.videolan.vlc.gui.audio.AudioBrowserFragment
 import org.videolan.vlc.gui.browser.BaseBrowserFragment
-import org.videolan.vlc.gui.browser.MainBrowserFragment
 import org.videolan.vlc.gui.helpers.UiTools.isTablet
+import org.videolan.vlc.gui.lcr.LcrDebugFragment
 import org.videolan.vlc.gui.video.VideoBrowserFragment
 import org.videolan.vlc.util.getScreenWidth
 
@@ -71,13 +66,11 @@ class Navigator : NavigationBarView.OnItemSelectedListener, DefaultLifecycleObse
     private lateinit var settings: SharedPreferences
     override lateinit var navigationView: List<NavigationBarView>
     override lateinit var appbarLayout: AppBarLayout
-    private var forExpresso: ArrayList<MediaLibraryItem>? = null
 
 
     override fun MainActivity.setupNavigation(state: Bundle?) {
         activity = this
         this@Navigator.settings = settings
-        forExpresso = intent.parcelableList(EXTRA_FOR_ESPRESSO)
         currentFragmentId = intent.getIntExtra(EXTRA_TARGET, 0)
         if (state !== null) {
             currentFragment = supportFragmentManager.getFragment(state, "current_fragment")
@@ -99,10 +92,8 @@ class Navigator : NavigationBarView.OnItemSelectedListener, DefaultLifecycleObse
     private fun getNewFragment(id: Int): Fragment {
         return when (id) {
             R.id.nav_audio -> AudioBrowserFragment()
-            R.id.nav_directories -> MainBrowserFragment().apply {
-                arguments = bundleOf(EXTRA_FOR_ESPRESSO to forExpresso)
-            }
             R.id.nav_playlists -> PlaylistFragment()
+            R.id.nav_lcr -> LcrDebugFragment()
             R.id.nav_more -> MoreFragment()
             else -> VideoBrowserFragment()
         }
@@ -150,7 +141,6 @@ class Navigator : NavigationBarView.OnItemSelectedListener, DefaultLifecycleObse
 
     private fun getTag(id: Int) = when (id) {
         R.id.nav_audio -> ID_AUDIO
-        R.id.nav_directories -> ID_DIRECTORIES
         else -> ID_VIDEO
     }
 

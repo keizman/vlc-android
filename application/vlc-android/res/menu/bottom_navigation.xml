@@ -36,13 +36,13 @@
             android:title="@string/audio"
             android:icon="@drawable/ic_menu_audio" />
     <item
-            android:id="@+id/nav_directories"
-            android:title="@string/browse"
-            android:icon="@drawable/ic_folder" />
-    <item
             android:id="@+id/nav_playlists"
             android:title="@string/playlists"
             android:icon="@drawable/ic_playlist" />
+    <item
+            android:id="@+id/nav_lcr"
+            android:title="LCR"
+            android:icon="@drawable/ic_equalizer" />
     <item
             android:id="@+id/nav_more"
             android:title="@string/more"
